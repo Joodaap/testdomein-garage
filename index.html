@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garage Tuindorp Utrecht | APK, Onderhoud & Reparaties</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --brand-green: #48bb78;
+            --brand-dark: #000000;
+            --brand-gray: #f3f4f6;
+            --text-main: #000000;
+            --text-muted: #718096;
+            --white: #ffffff;
+            --transition: all 0.3s ease;
+        }
+
+        /* --- RESET & BASIS --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--white); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 80px 0; }
+        .hidden { display: none !important; }
+
+        /* --- NAVIGATIE --- */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 25px 60px; background: rgba(0,0,0,0.9); transition: var(--transition);
+        }
+        nav.scrolled { padding: 15px 60px; background: #000; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo img { height: 40px; width: auto; border-radius: 4px; }
+        .logo-text { color: white; font-size: 1.4rem; font-weight: 800; }
+        .logo-text span { color: var(--brand-green); text-transform: uppercase; }
+        .nav-links { display: flex; gap: 35px; align-items: center; }
+        .nav-links a { color: white; text-decoration: none; font-size: 14px; font-weight: 700; text-transform: uppercase; transition: var(--transition); }
+        .nav-links a:hover { color: var(--brand-green); }
+        .nav-phone { color: white; font-weight: 700; display: flex; align-items: center; gap: 8px; text-decoration: none; }
+
+        /* --- HERO --- */
+        .hero {
+            height: 90vh; min-height: 700px; position: relative;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('voorpagina-eigenaar.jpg');
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+        }
+        .review-badge { background: var(--brand-green); color: black; padding: 8px 16px; border-radius: 4px; font-size: 13px; font-weight: 800; margin-bottom: 25px; display: flex; align-items: center; gap: 6px; }
+        .hero h1 { color: white; font-size: 82px; font-weight: 900; line-height: 1; max-width: 1000px; margin-bottom: 30px; letter-spacing: -3px; }
+        .hero h1 span { color: var(--brand-green); }
+        .hero p { color: white; font-size: 22px; font-weight: 700; max-width: 750px; margin-bottom: 45px; opacity: 0.95; }
+        .cta-group { display: flex; gap: 20px; position: relative; }
+        .btn-primary { background: var(--brand-green); color: black; padding: 20px 40px; border-radius: 4px; font-weight: 900; text-decoration: none; text-transform: uppercase; font-size: 16px; display: flex; align-items: center; gap: 12px; transition: var(--transition); cursor: pointer; border: none; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(72, 187, 120, 0.3); }
+        .btn-secondary { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(10px); color: white; padding: 20px 40px; border-radius: 4px; font-weight: 700; text-decoration: none; font-size: 18px; display: flex; align-items: center; gap: 10px; }
+        .apk-sticker { position: absolute; top: -25px; left: 180px; background: black; color: white; padding: 5px 12px; font-size: 12px; font-weight: 900; border-radius: 4px; transform: rotate(12deg); z-index: 10; }
+
+        /* --- STATS --- */
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: -80px; position: relative; z-index: 100; }
+        .stat-card { background: white; padding: 45px 20px; border-radius: 4px; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.08); }
+        .stat-icon { color: var(--brand-green); font-size: 28px; margin-bottom: 15px; display: flex; justify-content: center; }
+        .stat-value { font-size: 32px; font-weight: 900; color: var(--brand-dark); margin-bottom: 5px; }
+        .stat-label { font-size: 12px; font-weight: 800; text-transform: uppercase; color: #a0aec0; letter-spacing: 1px; }
+
+        /* --- DIENSTEN --- */
+        .section-header { text-align: center; margin-bottom: 70px; }
+        .section-header h2 { font-size: 48px; font-weight: 900; margin-bottom: 20px; letter-spacing: -1px; }
+        .section-header p { color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 18px; font-weight: 500; }
+        .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+        .service-card { text-align: center; transition: var(--transition); }
+        .service-img { width: 100%; height: 220px; border-radius: 8px; object-fit: cover; margin-bottom: 25px; }
+        .service-card h3 { font-size: 22px; font-weight: 900; color: var(--brand-green); text-transform: uppercase; margin-bottom: 15px; }
+        .service-card p { color: var(--text-muted); font-size: 15px; margin-bottom: 20px; line-height: 1.5; }
+        .service-card a { color: var(--brand-green); text-decoration: none; font-weight: 800; font-size: 14px; text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 5px; cursor: pointer; }
+
+        /* --- WAAROM --- */
+        .why-section { background: #000; color: #fff; }
+        .why-content { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .why-text h2 { font-size: 48px; font-weight: 900; margin-bottom: 40px; letter-spacing: -1px; }
+        .checklist { list-style: none; margin-bottom: 50px; }
+        .checklist li { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; font-size: 18px; font-weight: 600; }
+        .check-icon { color: var(--brand-green); font-size: 24px; }
+        .owner-quote { background: #111; padding: 35px; border-radius: 8px; border-left: 4px solid var(--brand-green); margin-top: 40px; }
+        .quote-text { font-style: italic; color: #cbd5e0; margin-bottom: 20px; font-size: 16px; }
+        .quote-author { display: flex; align-items: center; gap: 15px; }
+        .author-box { width: 45px; height: 45px; background: #333; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: 900; color: var(--brand-green); }
+        .author-info h4 { font-size: 16px; font-weight: 800; }
+        .author-info p { font-size: 12px; text-transform: uppercase; color: var(--brand-green); font-weight: 700; }
+        .why-image { position: relative; }
+        .main-img { width: 100%; border-radius: 8px; }
+        .exp-badge { position: absolute; bottom: -30px; left: -30px; background: var(--brand-green); color: black; padding: 30px; border-radius: 8px; text-align: center; }
+        .exp-badge h3 { font-size: 42px; font-weight: 900; line-height: 1; }
+        .exp-badge p { font-size: 12px; font-weight: 800; text-transform: uppercase; }
+
+        /* --- REVIEWS --- */
+        .reviews-top { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; }
+        .reviews-top h2 { font-size: 42px; font-weight: 900; }
+        .rating-box { background: #edf2f7; padding: 15px 25px; border-radius: 8px; display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 24px; }
+        .rating-box span { color: var(--brand-green); }
+        .reviews-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+        .review-card { background: white; padding: 35px; border-radius: 8px; border: 1px solid #edf2f7; display: flex; flex-direction: column; justify-content: space-between; }
+        .stars { color: var(--brand-green); margin-bottom: 20px; font-size: 18px; }
+        .review-body { font-style: italic; color: #4a5568; margin-bottom: 30px; font-size: 15px; line-height: 1.7; }
+        .review-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #edf2f7; padding-top: 20px; }
+        .review-name { font-weight: 900; font-size: 16px; }
+        .review-date { font-size: 11px; text-transform: uppercase; color: #a0aec0; font-weight: 700; }
+
+        /* --- CONTACT --- */
+        .contact-section { background: #e2e8f0; }
+        .contact-wrapper { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; }
+        .contact-info h2 { font-size: 48px; font-weight: 900; margin-bottom: 40px; }
+        .info-item { display: flex; gap: 25px; margin-bottom: 40px; }
+        .info-icon { width: 55px; height: 55px; background: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--brand-green); font-size: 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .info-text h4 { font-weight: 900; font-size: 18px; margin-bottom: 5px; }
+        .info-text p, .info-text a { font-size: 16px; color: var(--text-muted); text-decoration: none; }
+        .form-card { background: white; padding: 60px; border-radius: 8px; box-shadow: 0 25px 60px rgba(0,0,0,0.08); }
+        .form-card h3 { font-size: 28px; font-weight: 900; margin-bottom: 35px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px; }
+        .form-group label { display: block; font-size: 12px; font-weight: 800; text-transform: uppercase; color: #a0aec0; margin-bottom: 10px; letter-spacing: 1px; }
+        .form-group input, .form-group textarea { width: 100%; padding: 15px; background: #edf2f7; border: none; border-radius: 4px; font-size: 16px; font-weight: 600; outline: none; }
+        
+        /* --- KALENDER --- */
+        .calendar-ui { border: 1px solid #edf2f7; border-radius: 8px; margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; }
+        .cal-left { padding: 25px; border-right: 1px solid #edf2f7; }
+        .cal-right { padding: 25px; background: #fcfcfc; }
+        .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-weight: 900; font-size: 14px; text-transform: uppercase; }
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-size: 11px; font-weight: 800; color: #cbd5e0; margin-bottom: 10px; }
+        .cal-days { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-size: 14px; font-weight: 700; }
+        .cal-days div { padding: 12px 0; cursor: pointer; border-radius: 4px; }
+        .cal-days div:hover { background: #f7fafc; }
+        .cal-days div.active { color: var(--brand-green); font-weight: 900; }
+        .cal-days div.muted { color: #e2e8f0; cursor: default; }
+        .time-slots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 20px; }
+        .time-slot { padding: 10px; border: 1px solid #edf2f7; border-radius: 4px; font-size: 12px; font-weight: 800; text-align: center; cursor: pointer; background: white; }
+        .time-slot.selected { background: var(--brand-green); border-color: var(--brand-green); }
+
+        /* --- DETAIL PAGINA --- */
+        #detail-view { padding-top: 150px; }
+        .detail-header { display: flex; align-items: center; gap: 15px; color: var(--brand-green); font-weight: 800; text-transform: uppercase; font-size: 14px; cursor: pointer; margin-bottom: 40px; }
+        .detail-icon-box { width: 80px; height: 80px; background: #f3f4f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; margin-bottom: 30px; }
+        .detail-title { font-size: 64px; font-weight: 900; margin-bottom: 30px; letter-spacing: -2px; }
+        .detail-desc { font-size: 20px; color: var(--text-muted); max-width: 800px; margin-bottom: 60px; }
+        .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+        .pricing-card { background: #000; color: #fff; padding: 40px; border-radius: 8px; }
+        .price-row { display: flex; justify-content: space-between; border-bottom: 1px solid #333; padding: 15px 0; font-weight: 600; }
+        .price-row span:last-child { color: var(--brand-green); font-weight: 900; }
+        .cta-banner { background: var(--brand-green); padding: 60px; border-radius: 8px; text-align: center; color: #000; margin-top: 80px; }
+        .cta-banner h3 { font-size: 32px; font-weight: 900; margin-bottom: 15px; }
+
+        /* --- CHAT --- */
+        .chat-bubble { position: fixed; bottom: 30px; right: 30px; width: 70px; height: 70px; background: var(--brand-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2); cursor: pointer; z-index: 2000; }
+        .chat-window { position: fixed; bottom: 110px; right: 30px; width: 380px; height: 500px; background: white; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.2); display: none; flex-direction: column; overflow: hidden; z-index: 2000; }
+        .chat-header { background: #000; color: #fff; padding: 20px; display: flex; align-items: center; justify-content: space-between; }
+        .chat-body { flex: 1; padding: 20px; overflow-y: auto; background: #f8f9fa; }
+        .chat-footer { padding: 15px; border-top: 1px solid #eee; display: flex; gap: 10px; }
+        .chat-footer input { flex: 1; padding: 10px; border: 1px solid #eee; border-radius: 6px; outline: none; }
+
+        /* --- FOOTER --- */
+        footer { background: #000; padding: 60px 0; text-align: center; color: #555; }
+
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 52px; }
+            .stats-grid, .services-grid, .reviews-grid, .detail-grid { grid-template-columns: repeat(2, 1fr); }
+            .why-content, .contact-wrapper, .calendar-ui { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigatie -->
+    <nav id="navbar">
+        <a href="#" class="logo" onclick="showPage('home')">
+            <img src="logo1.png" alt="Garage Tuindorp Logo">
+            <div class="logo-text">Garage <span>TUINDORP</span></div>
+        </a>
+        <div class="nav-links">
+            <a href="#home" onclick="showPage('home')">Home</a>
+            <a href="#over-ons" onclick="showPage('home')">Over ons</a>
+            <a href="#diensten" onclick="showPage('home')">Diensten</a>
+            <a href="#contact" onclick="showPage('home')">Contact</a>
+            <a href="tel:0302713158" class="nav-phone">📞 030 271 3158</a>
+        </div>
+    </nav>
+
+    <!-- HOME VIEW -->
+    <div id="home-view">
+        <!-- Hero -->
+        <header id="home" class="hero">
+            <div class="review-badge">★ 4.8/5 op basis van 213 reviews</div>
+            <h1>Uw auto in <span>vertrouwde handen</span> in Utrecht</h1>
+            <p>Bij Garage Tuindorp combineren we vakmanschap met persoonlijke service. APK, onderhoud of reparatie? Ardic en zijn team staan voor u klaar.</p>
+            <div class="cta-group">
+                <div class="apk-sticker">APK €39,-</div>
+                <button onclick="scrollToContact()" class="btn-primary">
+                    Maak een afspraak
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+                <a href="tel:0302713158" class="btn-secondary">📞 030 271 3158</a>
+            </div>
+        </header>
+
+        <!-- Stats -->
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">👍</div>
+                    <div class="stat-value">2000+</div>
+                    <div class="stat-label">Tevreden Klanten</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">★</div>
+                    <div class="stat-value">213</div>
+                    <div class="stat-label">Reviews</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🕒</div>
+                    <div class="stat-value">15+</div>
+                    <div class="stat-label">Jaar Ervaring</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📍</div>
+                    <div class="stat-value">Utrecht</div>
+                    <div class="stat-label">Locatie</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Diensten -->
+        <section id="diensten" class="bg-gray">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Onze Diensten</h2>
+                    <p>Van routine-onderhoud tot complexe reparaties, wij bieden een volledig pakket aan diensten om uw auto in topconditie te houden.</p>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card" onclick="showDetail('apk')">
+                        <img src="service-apk.jpg" class="service-img" alt="APK Keuring">
+                        <h3>APK Keuring</h3>
+                        <p>Snel en vakkundig. Wij zorgen dat uw auto weer veilig de weg op kan.</p>
+                        <a>Lees meer ❯</a>
+                    </div>
+                    <div class="service-card" onclick="showDetail('onderhoud')">
+                        <img src="service-onderhoud.jpg" class="service-img" alt="Onderhoud">
+                        <h3>Onderhoud</h3>
+                        <p>Grote en kleine beurten voor alle merken. Behoud de waarde van uw auto.</p>
+                        <a>Lees meer ❯</a>
+                    </div>
+                    <div class="service-card" onclick="showDetail('reparaties')">
+                        <img src="service-reparaties.jpg" class="service-img" alt="Reparaties">
+                        <h3>Reparaties</h3>
+                        <p>Van remmen tot motorrevisie. Wij lossen elk probleem vakkundig op.</p>
+                        <a>Lees meer ❯</a>
+                    </div>
+                    <div class="service-card" onclick="showDetail('diagnose')">
+                        <img src="service-diagnose.jpg" class="service-img" alt="Diagnose">
+                        <h3>Diagnose</h3>
+                        <p>Moderne uitleesapparatuur om storingen snel en accuraat te vinden.</p>
+                        <a>Lees meer ❯</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Waarom / Over Ons -->
+        <section id="over-ons" class="why-section">
+            <div class="container">
+                <div class="why-content">
+                    <div class="why-text">
+                        <h2>Waarom Garage Tuindorp?</h2>
+                        <ul class="checklist">
+                            <li><span class="check-icon">✔</span> Eerlijk en transparant advies</li>
+                            <li><span class="check-icon">✔</span> Scherpe en vooraf afgesproken prijzen</li>
+                            <li><span class="check-icon">✔</span> Snelle service, vaak dezelfde dag klaar</li>
+                            <li><span class="check-icon">✔</span> Hart voor de zaak en voor uw auto</li>
+                            <li><span class="check-icon">✔</span> Gevestigd in het hart van Utrecht</li>
+                        </ul>
+                        <div class="owner-quote">
+                            <p class="quote-text">"Ardic is een vakman die nog echt passie heeft voor zijn werk. Bij ons bent u geen nummer, maar een gewaardeerde klant."</p>
+                            <div class="quote-author">
+                                <div class="author-box">A</div>
+                                <div class="author-info">
+                                    <h4>Ardic</h4>
+                                    <p>Eigenaar & Hoofdmonteur</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="why-image">
+                        <img src="hard-aan-het-werk1.jpg" class="main-img" alt="Over Garage Tuindorp">
+                        <div class="exp-badge">
+                            <h3>15+</h3>
+                            <p>Jaar Ervaring</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reviews -->
+        <section>
+            <div class="container">
+                <div class="reviews-top">
+                    <div>
+                        <h2>Wat onze klanten zeggen</h2>
+                        <p style="color: var(--text-muted); max-width: 500px; margin-top: 15px;">Onze klanten waarderen onze eerlijkheid, snelheid en vakkundigheid.</p>
+                    </div>
+                    <div class="rating-box">
+                        <span>★ 4.8</span> / 5.0
+                    </div>
+                </div>
+                <div class="reviews-grid">
+                    <div class="review-card">
+                        <div class="stars">★★★★★</div>
+                        <p class="review-body">"Ik kom nu een tijdje bij deze garage, ik ben heel erg tevreden. Als ik een probleem heb of spoed, wordt er altijd gezorgd dat ik gelijk terecht kan."</p>
+                        <div class="review-footer">
+                            <span class="review-name">Shanice Pinas</span>
+                            <span class="review-date">4 maanden geleden</span>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="stars">★★★★★</div>
+                        <p class="review-body">"Top garage! Ardic is eerlijk en denkt met je mee. Geen onnodige kosten en altijd snel klaar. Echt een aanrader in Utrecht."</p>
+                        <div class="review-footer">
+                            <span class="review-name">Jeroen v.d. Meer</span>
+                            <span class="review-date">2 maanden geleden</span>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="stars">★★★★★</div>
+                        <p class="review-body">"Al jaren klant bij Garage Tuindorp. Altijd vriendelijk geholpen en de auto is in goede handen. Betrouwbaar en vakkundig."</p>
+                        <div class="review-footer">
+                            <span class="review-name">Linda de Vries</span>
+                            <span class="review-date">1 maand geleden</span>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="stars">★★★★★</div>
+                        <p class="review-body">"Eerlijke prijzen en goede service. Ardic legt altijd goed uit wat er moet gebeuren. Geen verrassingen achteraf."</p>
+                        <div class="review-footer">
+                            <span class="review-name">Mark Bakker</span>
+                            <span class="review-date">3 weken geleden</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <div class="contact-wrapper">
+                    <div class="contact-info">
+                        <h2>Neem contact op</h2>
+                        <p>Wilt u een afspraak maken of heeft u een vraag? Bel ons direct of kom langs in onze garage in Utrecht.</p>
+                        
+                        <div class="info-item">
+                            <div class="info-icon">📍</div>
+                            <div class="info-text">
+                                <h4>Adres</h4>
+                                <p>Antonius Matthaeuslaan 71<br>3515 AP Utrecht</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">📞</div>
+                            <div class="info-text">
+                                <h4>Telefoon</h4>
+                                <p>030 271 3158</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">🕒</div>
+                            <div class="info-text">
+                                <h4>Openingstijden</h4>
+                                <p>Ma - Vr: 08:00 - 17:30<br>Za: Op afspraak</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">✉️</div>
+                            <div class="info-text">
+                                <h4>Online & Info</h4>
+                                <p>info@autogaragetuindorp.nl<br>KvK: 58410554</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-card">
+                        <h3>Stuur een bericht</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Naam</label>
+                                <input type="text" placeholder="Uw naam">
+                            </div>
+                            <div class="form-group">
+                                <label>Telefoon</label>
+                                <input type="text" placeholder="Uw nummer">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 25px;">
+                            <label>Kenteken (Optioneel)</label>
+                            <input type="text" placeholder="XX-XXX-X">
+                        </div>
+                        <div class="form-group">
+                            <label>Bericht</label>
+                            <textarea rows="4" placeholder="Hoe kunnen we u helpen?"></textarea>
+                        </div>
+
+                        <div class="calendar-ui">
+                            <div class="cal-left">
+                                <div class="cal-header">
+                                    <span>April 2026</span>
+                                    <span>❮ ❯</span>
+                                </div>
+                                <div class="cal-grid">
+                                    <div>MA</div><div>DI</div><div>WO</div><div>DO</div><div>VR</div><div>ZA</div><div>ZO</div>
+                                </div>
+                                <div class="cal-days">
+                                    <div class="muted">30</div><div class="muted">31</div><div>1</div><div>2</div><div>3</div><div>4</div><div class="muted">5</div>
+                                    <div>6</div><div>7</div><div>8</div><div>9</div><div class="active">10</div><div>11</div><div class="muted">12</div>
+                                </div>
+                            </div>
+                            <div class="cal-right">
+                                <div class="cal-header">BESCHIKBARE TIJDEN</div>
+                                <div style="color: #a0aec0; font-size: 14px; margin-top: 50px; text-align: center;">Selecteer eerst een datum</div>
+                            </div>
+                        </div>
+                        <button class="btn-primary" style="width: 100%; margin-top: 40px; justify-content: center;">Verstuur Aanvraag</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- DETAIL VIEW -->
+    <div id="detail-view" class="container hidden">
+        <div class="detail-header" onclick="showPage('home')">
+            <span>← Terug naar overzicht</span>
+        </div>
+        <div id="detail-content">
+            <!-- Dynamisch gevuld -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px;">
+                <div style="background: var(--brand-green); color: black; padding: 4px 8px; border-radius: 4px; font-weight: 900;">GT</div>
+                <span style="color: white; font-weight: 800; font-size: 1.2rem;">Garage <span style="color: var(--brand-green);">TUINDORP</span></span>
+            </div>
+            <p>© 2026 Garage Tuindorp Utrecht. Alle rechten voorbehouden.</p>
+        </div>
+    </footer>
+
+    <!-- Chat Bubble -->
+    <div class="chat-bubble" onclick="toggleChat()">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+    </div>
+    <div id="chat-window" class="chat-window">
+        <div class="chat-header">
+            <span style="font-weight: 800; text-transform: uppercase; font-size: 12px;">Garage Tuindorp Chat</span>
+            <span onclick="toggleChat()" style="cursor:pointer;">&times;</span>
+        </div>
+        <div class="chat-body">
+            <div style="background: white; padding: 10px; border-radius: 8px; margin-bottom: 10px; font-size: 14px; border: 1px solid #eee;">
+                Hoi! Welkom bij Garage Tuindorp. Waar kunnen we je vandaag mee helpen? 🚗
+            </div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" placeholder="Typ je bericht...">
+            <button style="background: var(--brand-green); border: none; padding: 5px 15px; border-radius: 4px; font-weight: 800;">➤</button>
+        </div>
+    </div>
+
+    <script>
+        const serviceData = {
+            apk: {
+                title: "APK Keuring",
+                icon: "🛡️",
+                desc: "De Algemene Periodieke Keuring (APK) is een wettelijk verplichte keuring in Europa ter bevordering van de verkeersveiligheid en ter bescherming van het milieu. Bij Garage Tuindorp voeren we deze keuring objectief en vakkundig uit.",
+                benefits: ["Verkeersveiligheid gegarandeerd", "Milieunormen worden nageleefd", "Voorkom hoge boetes van de RDW", "Directe afmelding bij de RDW"],
+                pricing: [{l: "Benzine auto", p: "€25,-"}, {l: "Diesel auto", p: "€40,-"}, {l: "Inclusief afmeldkosten", p: "Ja"}]
+            },
+            onderhoud: {
+                title: "Onderhoud",
+                icon: "🔧",
+                desc: "Regelmatig onderhoud is essentieel voor de levensduur van uw auto. Wij bieden zowel kleine als grote onderhoudsbeurten aan, waarbij we uw auto op tientallen punten controleren.",
+                benefits: ["Verlengt de levensduur van uw motor", "Hogere inruilwaarde van uw voertuig", "Voorkomt onverwachte en dure reparaties", "Veiligheid voorop bij elke kilometer"],
+                pricing: [{l: "Kleine beurt (vanaf)", p: "€99,-"}, {l: "Grote beurt (vanaf)", p: "€199,-"}, {l: "Olie & Filters", p: "Inbegrepen"}]
+            },
+            reparaties: {
+                title: "Reparaties",
+                icon: "🔨",
+                desc: "Is er iets kapot aan uw auto? Geen zorgen. Onze ervaren monteurs repareren alles, van versleten remmen en kapotte uitlaten tot complexe motorische problemen.",
+                benefits: ["Gebruik van A-kwaliteit onderdelen", "Garantie op alle uitgevoerde reparaties", "Transparante prijsopgave vooraf", "Leenauto of haal- en brengservice mogelijk"],
+                pricing: [{l: "Uurtarief", p: "Concurrerend"}, {l: "Onderdelen", p: "Marktconform"}, {l: "Offerte", p: "Altijd vooraf"}]
+            },
+            diagnose: {
+                title: "Diagnose",
+                icon: "🚗",
+                desc: "Brandt er een lampje op uw dashboard? Met onze geavanceerde diagnose-apparatuur kunnen we snel en nauwkeurig de oorzaak van de storing vinden in de elektronica van uw auto.",
+                benefits: ["Snel en accuraat storingen vinden", "Voorkomt onnodige vervanging van onderdelen", "Uitlezen van alle automerken", "Duidelijk rapport van de bevindingen"],
+                pricing: [{l: "Uitlezen & Rapport", p: "€45,-"}, {l: "Diepgaande diagnose", p: "Op aanvraag"}, {l: "Resetten foutcodes", p: "Inbegrepen"}]
+            }
+        };
+
+        function showPage(page) {
+            if (page === 'home') {
+                document.getElementById('home-view').classList.remove('hidden');
+                document.getElementById('detail-view').classList.add('hidden');
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function showDetail(id) {
+            const data = serviceData[id];
+            const content = `
+                <div class="detail-icon-box">${data.icon}</div>
+                <h1 class="detail-title">${data.title}</h1>
+                <p class="detail-desc">${data.desc}</p>
+                <div class="detail-grid">
+                    <div>
+                        <h3 style="font-size: 24px; font-weight: 900; margin-bottom: 25px;">Uw Voordelen</h3>
+                        ${data.benefits.map(b => `<div style="display:flex; align-items:center; gap:10px; margin-bottom:15px; font-weight:600;"><span style="color:var(--brand-green)">✔</span> ${b}</div>`).join('')}
+                    </div>
+                    <div class="pricing-card">
+                        <div style="color:var(--brand-green); font-size: 32px; margin-bottom: 20px;">€</div>
+                        ${data.pricing.map(p => `<div class="price-row"><span>${p.l}</span><span>${p.p}</span></div>`).join('')}
+                    </div>
+                </div>
+                <div class="cta-banner">
+                    <h3>Direct een afspraak maken?</h3>
+                    <p style="margin-bottom: 30px; font-weight: 600;">Bel ons of stuur een bericht voor een snelle inplanning van uw ${data.title}.</p>
+                    <div style="display:flex; justify-content:center; gap:20px;">
+                        <a href="tel:0302713158" class="btn-primary" style="background:white">📞 030 271 3158</a>
+                        <button onclick="showPage('home'); setTimeout(scrollToContact, 100)" class="btn-primary" style="background:transparent; border:1px solid black">Bericht sturen</button>
+                    </div>
+                </div>
+            `;
+            document.getElementById('detail-content').innerHTML = content;
+            document.getElementById('home-view').classList.add('hidden');
+            document.getElementById('detail-view').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function scrollToContact() {
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleChat() {
+            const win = document.getElementById('chat-window');
+            win.style.display = win.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) nav.style.background = '#000';
+            else nav.style.background = 'linear-gradient(to bottom, rgba(0,0,0,0.6), transparent)';
+        });
+    </script>
+</body>
+</html>
